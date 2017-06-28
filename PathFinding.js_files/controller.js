@@ -203,32 +203,37 @@ $.extend(Controller, {
     onready: function() {
 		//daniel vega
 		//gridSize: [64, 36], // number of nodes horizontally and vertically
+		//start and end position
+		var strPs1 =Math.round(Math.random() * (31 - 1) + 1);
+		var strPs2 =Math.round(Math.random() * (17 - 1) + 1);
+		var endPs1 =Math.round(Math.random() * (62 - 31) + 31);
+		var endPs2 =Math.round(Math.random() * (34 - 18) + 18);
+		this.setStartPos(strPs1, strPs2);
+		this.setEndPos(endPs1, endPs2);
+
 		for (var i = 0; i < 64; i++) {
 		    for (var j = 0; j < 36; j++) {
 			    var rnd =(Math.random()*1);
-			    if (rnd>0.8) {
+			    var bool = this.isStartOrEndPos(i,j);
+			    if (rnd>0.7 && bool==false) {
 				    this.setWalkableAt(i, j, false);
 			    }else {
 			    		this.setWalkableAt(i, j, true);
 			    }
 		    }
 		}
-		//start and end position
-		var strPs1 =Math.round((Math.random()*32));
-		var strPs2 =Math.round((Math.random()*18));
-		var endPs1 =Math.round(Math.random() * (63 - 32) + 32);
-		var endPs2 =Math.round(Math.random() * (35 - 18) + 18);
-		this.setStartPos(strPs1, strPs2);
-		this.setEndPos(endPs1, endPs2);
 		//open posible paths
+		//start
 		this.setWalkableAt(strPs1 +1, strPs2, true);
 		this.setWalkableAt(strPs1 -1, strPs2, true);
 		this.setWalkableAt(strPs1, strPs2 +1 , true);
 		this.setWalkableAt(strPs1, strPs2 -1, true);
+		//end
 		this.setWalkableAt(endPs1 +1, endPs2, true);
 		this.setWalkableAt(endPs1 -1, endPs2, true);
 		this.setWalkableAt(endPs1, endPs2 +1 , true);
 		this.setWalkableAt(endPs1, endPs2 -1, true);
+
 		//start search
 		Controller.clearOperations();
 		Controller.clearFootprints();
@@ -307,6 +312,9 @@ $.extend(Controller, {
             enabled: true,
             callback: $.proxy(this.clear, this),
         });
+	   /*daniel2*/
+	   Controller.clear();
+	   /*daniel2*/
     },
     onmodified: function() {
         console.log('=> modified');
