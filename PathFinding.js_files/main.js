@@ -9,6 +9,6 @@ $(document).ready(function() {
     });
 
     // initialize visualization
-    Panel.init();
-    Controller.init(); 
+	Panel.init();
+	Controller.init();
 });

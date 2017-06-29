@@ -4,6 +4,13 @@
  * See https://github.com/jakesgordon/javascript-state-machine
  * for the document of the StateMachine module.
  */
+/*deauvece variables*/
+var iterations = 0;
+//x axis
+var xa = new Array();
+//y axis
+var ya = new Array();
+/*deauvece*/
 var Controller = StateMachine.create({
     initial: 'none',
     events: [
@@ -141,7 +148,6 @@ $.extend(Controller, {
         this.operationCount = this.operations.length;
         timeEnd = window.performance ? performance.now() : Date.now();
         this.timeSpent = (timeEnd - timeStart).toFixed(4);
-
         this.loop();
         // => searching
     },
@@ -177,6 +183,12 @@ $.extend(Controller, {
             operationCount: this.operationCount,
         });
         View.drawPath(this.path);
+	   /*deauvece data*/
+	   console.log(this.timeSpent);
+	   console.log(PF.Util.pathLength(this.path));
+	   ya.push(this.timeSpent);
+	   xa.push(PF.Util.pathLength(this.path));
+	   /*deauvece*/
         // => finished
     },
     onclear: function(event, from, to) {
@@ -201,7 +213,7 @@ $.extend(Controller, {
      */
 
     onready: function() {
-		//daniel vega
+		/*deauvece start*/
 		//gridSize: [64, 36], // number of nodes horizontally and vertically
 		//start and end position
 		var strPs1 =Math.round(Math.random() * (31 - 1) + 1);
@@ -238,6 +250,7 @@ $.extend(Controller, {
 		Controller.clearOperations();
 		Controller.clearFootprints();
 		Controller.start();
+		/*deauvece*/
 
 
 		console.log('=> ready');
@@ -312,9 +325,42 @@ $.extend(Controller, {
             enabled: true,
             callback: $.proxy(this.clear, this),
         });
-	   /*daniel2*/
-	   Controller.clear();
-	   /*daniel2*/
+	   /*deauvece finish*/
+	   	iterations=iterations+1;
+	   	console.log(iterations);
+
+		Controller.clearFootprints();
+		Controller.clearOperations();
+		Controller.clearAll();
+		if (iterations>5) {
+			//DATA TO SHOW
+			console.log(xa);
+			xa=xa.sort();
+			console.log(ya);
+
+			//make graph
+		     //var chrt = document.getElementById("mycanvas").getContext("2d");
+		     var myCanvas = $("#myCanvas");
+		     var chrt =  myCanvas[0].getContext("2d");
+		     var data = {
+		     labels: xa, //x-axis
+		     datasets: [
+		 	   {
+		 		label: "My Second dataset", //optional
+		 		fillColor: "rgba(220,120,220,0.8)",
+		 		strokeColor: "rgba(220,120,220,0.8)",
+		 		highlightFill: "rgba(220,220,220,0.75)",
+		 		highlightStroke: "rgba(220,220,220,1)",
+		 		data: ya
+		 	 }
+		     ]
+		     };
+		     var myFirstChart = new Chart(chrt).Bar(data);
+			Controller.pause();
+		}else{
+			Controller.clear();
+		}
+	   /*deauvece*/
     },
     onmodified: function() {
         console.log('=> modified');
