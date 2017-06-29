@@ -188,6 +188,7 @@ $.extend(Controller, {
 	   console.log(PF.Util.pathLength(this.path));
 	   ya.push(this.timeSpent);
 	   xa.push(PF.Util.pathLength(this.path));
+	   $("#data_table").append("<tr><td>1</td><td>2</td><td>3</td></tr>");
 	   /*deauvece*/
         // => finished
     },
@@ -216,10 +217,14 @@ $.extend(Controller, {
 		/*deauvece start*/
 		//gridSize: [64, 36], // number of nodes horizontally and vertically
 		//start and end position
-		var strPs1 =Math.round(Math.random() * (31 - 1) + 1);
+		/*var strPs1 =Math.round(Math.random() * (31 - 1) + 1);
 		var strPs2 =Math.round(Math.random() * (17 - 1) + 1);
 		var endPs1 =Math.round(Math.random() * (62 - 31) + 31);
-		var endPs2 =Math.round(Math.random() * (34 - 18) + 18);
+		var endPs2 =Math.round(Math.random() * (34 - 18) + 18); */
+		var strPs1 =3;
+		var strPs2 =3;
+		var endPs1 =60;
+		var endPs2 =30;
 		this.setStartPos(strPs1, strPs2);
 		this.setEndPos(endPs1, endPs2);
 
@@ -332,7 +337,7 @@ $.extend(Controller, {
 		Controller.clearFootprints();
 		Controller.clearOperations();
 		Controller.clearAll();
-		if (iterations>5) {
+		if (iterations>20) {
 			//DATA TO SHOW
 			console.log(xa);
 			xa=xa.sort();

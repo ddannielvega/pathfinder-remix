@@ -94,7 +94,10 @@ button:hover {
     font-size: 14px;
     margin: 2px 30px 0;
 }
-
+#data_table{
+	-webkit-user-select: text;
+	z-index: 10;
+}
 #stats {
 	display: none;
     position: fixed;
