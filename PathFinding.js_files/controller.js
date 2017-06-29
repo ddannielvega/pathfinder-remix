@@ -188,7 +188,7 @@ $.extend(Controller, {
 	   console.log(PF.Util.pathLength(this.path));
 	   ya.push(this.timeSpent);
 	   xa.push(PF.Util.pathLength(this.path));
-	   $("#data_table").append("<tr><td>1</td><td>2</td><td>3</td></tr>");
+	   $("#data_table").append("<tr><td>"+this.timeSpent+"</td><td>"+PF.Util.pathLength(this.path)+"</td><td>"+this.operationCount+"</td></tr>");
 	   /*deauvece*/
         // => finished
     },
