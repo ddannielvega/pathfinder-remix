@@ -188,7 +188,8 @@ $.extend(Controller, {
 	   console.log(PF.Util.pathLength(this.path));
 	   ya.push(this.timeSpent);
 	   xa.push(PF.Util.pathLength(this.path));
-	   $("#data_table").append("<tr><td>"+this.timeSpent+"</td><td>"+PF.Util.pathLength(this.path)+"</td><td>"+this.operationCount+"</td></tr>");
+	   var percent=(PF.Util.pathLength(this.path))/(68.18);
+	   $("#data_table").append("<tr><td>"+this.timeSpent+"</td><td>"+PF.Util.pathLength(this.path)+"</td><td>"+this.operationCount+"</td><td>"+percent*100+"</td></tr>");
 	   /*deauvece*/
         // => finished
     },
