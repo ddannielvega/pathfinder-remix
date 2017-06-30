@@ -5,7 +5,7 @@
 var View = {
     nodeSize: 30, // width and height of a single node, in pixel
     nodeStyle: {
-        normal: { 
+        normal: {
             fill: 'white',
             'stroke-opacity': 0.2, // the border
         },

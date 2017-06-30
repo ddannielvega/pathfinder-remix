@@ -189,7 +189,7 @@ $.extend(Controller, {
 	   ya.push(this.timeSpent);
 	   xa.push(PF.Util.pathLength(this.path));
 	   var percent=(PF.Util.pathLength(this.path))/(68.18);
-	   $("#data_table").append("<tr><td>"+this.timeSpent+"</td><td>"+PF.Util.pathLength(this.path)+"</td><td>"+this.operationCount+"</td><td>"+percent*100+"</td></tr>");
+	   $("#data_table").append("<tr><td>"+iterations+"</td><td>"+this.timeSpent+"</td><td>"+PF.Util.pathLength(this.path)+"</td><td>"+this.operationCount+"</td><td>"+percent*100+"</td></tr>");
 	   /*deauvece*/
         // => finished
     },
@@ -346,7 +346,7 @@ $.extend(Controller, {
 
 			//make graph
 		     //var chrt = document.getElementById("mycanvas").getContext("2d");
-		     var myCanvas = $("#myCanvas");
+		     /*var myCanvas = $("#myCanvas");
 		     var chrt =  myCanvas[0].getContext("2d");
 		     var data = {
 		     labels: xa, //x-axis
@@ -361,7 +361,7 @@ $.extend(Controller, {
 		 	 }
 		     ]
 		     };
-		     var myFirstChart = new Chart(chrt).Bar(data);
+		     var myFirstChart = new Chart(chrt).Bar(data);*/
 			Controller.pause();
 		}else{
 			Controller.clear();
