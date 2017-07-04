@@ -137,8 +137,21 @@ $.extend(Controller, {
     },
     onsearch: function(event, from, to) {
         var grid,
-            timeStart, timeEnd,
-            finder = Panel.getFinder();
+            timeStart, timeEnd;
+
+		  /*deauvece*/
+		  console.log(iterations);
+		  //poner todos en falso
+		  $('#algorithm_panel ' + '.ui-accordion-header').attr("aria-selected","false");
+		  if (iterations%2==0) {
+			  //lo hace con a estrella
+			  $("#astar_header").attr("aria-selected","true");
+		  }else{
+			  //lo hace con dijkstra
+			  $("#dijkstra_header").attr("aria-selected","true");
+		  }
+		  /*deauvece*/
+		  finder = Panel.getFinder();
 
         timeStart = window.performance ? performance.now() : Date.now();
         grid = this.grid.clone();
@@ -189,7 +202,9 @@ $.extend(Controller, {
 	   ya.push(this.timeSpent);
 	   xa.push(PF.Util.pathLength(this.path));
 	   var percent=(PF.Util.pathLength(this.path))/(68.18);
-	   $("#data_table").append("<tr><td>"+iterations+"</td><td>"+this.timeSpent+"</td><td>"+PF.Util.pathLength(this.path)+"</td><td>"+this.operationCount+"</td><td>"+percent*100+"</td></tr>");
+	   if (iterations>1) {
+		   $("#data_table").append("<tr><td>"+iterations+"</td><td>"+this.timeSpent+"</td><td>"+PF.Util.pathLength(this.path)+"</td><td>"+this.operationCount+"</td><td>"+percent*100+"</td></tr>");
+	   }
 	   /*deauvece*/
         // => finished
     },
@@ -229,17 +244,24 @@ $.extend(Controller, {
 		this.setStartPos(strPs1, strPs2);
 		this.setEndPos(endPs1, endPs2);
 
-		for (var i = 0; i < 64; i++) {
-		    for (var j = 0; j < 36; j++) {
-			    var rnd =(Math.random()*1);
-			    var bool = this.isStartOrEndPos(i,j);
-			    if (rnd>0.7 && bool==false) {
-				    this.setWalkableAt(i, j, false);
-			    }else {
-			    		this.setWalkableAt(i, j, true);
-			    }
-		    }
+
+		Controller.clearOperations();
+		Controller.clearFootprints();
+		if (iterations%2==0) {
+			console.log("cambio de mapa");
+			for (var i = 0; i < 64; i++) {
+				for (var j = 0; j < 36; j++) {
+					var rnd =(Math.random()*1);
+					var bool = this.isStartOrEndPos(i,j);
+					if (rnd>0.7 && bool==false) {
+						this.setWalkableAt(i, j, false);
+					}else {
+						this.setWalkableAt(i, j, true);
+					}
+				}
+			}
 		}
+
 		//open posible paths
 		//start
 		this.setWalkableAt(strPs1 +1, strPs2, true);
@@ -253,8 +275,6 @@ $.extend(Controller, {
 		this.setWalkableAt(endPs1, endPs2 -1, true);
 
 		//start search
-		Controller.clearOperations();
-		Controller.clearFootprints();
 		Controller.start();
 		/*deauvece*/
 
@@ -333,11 +353,6 @@ $.extend(Controller, {
         });
 	   /*deauvece finish*/
 	   	iterations=iterations+1;
-	   	console.log(iterations);
-
-		Controller.clearFootprints();
-		Controller.clearOperations();
-		Controller.clearAll();
 		if (iterations>20) {
 			//DATA TO SHOW
 			console.log(xa);
